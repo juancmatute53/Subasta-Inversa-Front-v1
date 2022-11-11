@@ -1,4 +1,4 @@
-# SubastaFrontCaso3
+# Subasta Inversa - Caso #3 - Examen Complexivo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
 
