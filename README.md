@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
 
+Instalar node: npm install 
+Instalar angular material: ng add @angular/material
+Instalar bootstrap: npm i bootstrap@5.2.2
+Crear componentes: ng g c components/"nombre del componente sin comillas" --skip-tests
+
+Ejemplo de creacion componente:
+ ng g c components/reportes --skip-tests
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
