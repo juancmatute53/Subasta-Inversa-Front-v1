@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/app/components/dashboard/dashboard.component.css">
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,700&display=swap" rel="stylesheet">
+
+  <!-- Ionic icons -->
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="d-flex" id="content-wrapper">
+
+  <!-- Sidebar -->
+  <div id="sidebar-container" class="bg-primary">
+    <div class="logo">
+      <h4 class="text-light font-weight-bold mb-0">Sistema de Subastas</h4>
+    </div>
+    <div class="menu">
+      <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-tv lead mr-2"></i>
+        Monitoreo</a>
+
+      <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-add-circle lead mr-2"></i>
+        Nueva Subasta</a>
+
+      <a href="#" class="d-block text-light p-3 border-0"><i class="icon ion-md-bookmark lead mr-2"></i>
+        Nueva Categoria</a>
+
+    </div>
+  </div>
+  <!-- Fin sidebar -->
+
+  <div class="w-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline position-relative d-inline-block my-2">
+            <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
+            <button class="btn position-absolute btn-search" type="submit"><i class="icon ion-md-search"></i></button>
+          </form>
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/user-2.jpg" class="img-fluid rounded-circle avatar mr-2"/>
+                Juan Perez
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Mi perfil</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/login">Cerrar sesión</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Fin Navbar -->
+
+    <!-- Page Content -->
+    <div id="content" class="bg-grey w-100">
+
+      <section class="bg-light py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-9 col-md-8">
+              <h1 class="font-weight-bold mb-0">Bienvenido Juan</h1>
+              <p class="lead text-muted">Revisa las última subastas del día</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-mix py-3">
+        <div class="container">
+          <div class="card rounded-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                  <div class="mx-auto">
+                    <h6 class="text-muted">Subastas Activas</h6>
+                    <h3 class="font-weight-bold">5</h3>
+                    <h6><button type="button" class="btn btn-primary">Ver mas</button></h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                  <div class="mx-auto">
+                    <h6 class="text-muted">Subastas Cerradas</h6>
+                    <h3 class="font-weight-bold">1</h3>
+                    <h6><button type="button" class="btn btn-primary">Ver mas</button></h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                  <div class="mx-auto">
+                    <h6 class="text-muted">Subastas Realizadas</h6>
+                    <h3 class="font-weight-bold">3</h3>
+                    <h6><button type="button" class="btn btn-primary">Ver mas</button></h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 d-flex my-3">
+                  <div class="mx-auto">
+                    <h6 class="text-muted">Servicios Contrarados</h6>
+                    <h3 class="font-weight-bold">2</h3>
+                    <h6><button type="button" class="btn btn-primary">Ver mas</button></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+
+</html>

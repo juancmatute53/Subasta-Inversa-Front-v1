@@ -1,0 +1,29 @@
+body{
+  background: rgb(255, 255, 255);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+img{
+  width: 50%;
+}
+.container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+h1{
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width:630px){
+  h1{
+    font-size: 16px;
+  }
+}
