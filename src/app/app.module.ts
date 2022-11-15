@@ -11,6 +11,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import {MatButtonModule} from "@angular/material/button";
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     LoginComponent,
     DashboardComponent,
     SignUpComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+
   ],
   imports: [
     BrowserModule,
