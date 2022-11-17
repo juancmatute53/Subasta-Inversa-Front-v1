@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import {MatButtonModule} from "@angular/material/button";
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    FileUploadModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
