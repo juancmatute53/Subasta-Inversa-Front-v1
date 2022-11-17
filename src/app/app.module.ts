@@ -12,7 +12,8 @@ import {MatButtonModule} from "@angular/material/button";
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
-
+import {UsuarioCrudService} from "./components/services/usuario-crud.service";
+import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,12 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     MatButtonModule,
     FileUploadModule,
-    HttpClientModule
+    HttpClientModule,
+    TabViewModule
   ],
-  providers: [],
+  providers: [
+    UsuarioCrudService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
