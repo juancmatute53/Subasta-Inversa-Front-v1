@@ -7,14 +7,77 @@
     <br>
 
     <form>
-      <input type="text" id="username" name="username" class="fadeIn second" placeholder="Usuario" >
-      <input type="text" id="email" name="email" class="fadeIn second" placeholder="Email" >
-      <input type="password" id="password" name="password" class="fadeIn third" placeholder="Contraseña">
-      <br>
-      <input type="submit" name="Login" id="go" class="fadeIn fourth" value="Registrarse" routerLink="/dashboard">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            <input type="text" id="fristname" name="fristname" class="fadeIn second" placeholder="Nombre">
+          </div>
+          <div class="col">
+            <input type="text" id="lastname" name="lastname" class="fadeIn second" placeholder="Apellido">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="email" name="email" class="fadeIn second" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="address" name="address" class="fadeIn second" placeholder="Direccion">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="telephone" name="telephone" class="fadeIn second" placeholder="Telefono">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="experience" name="experience" class="fadeIn second"
+                   placeholder="Años de Experiencia">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="username" name="address" class="fadeIn second" placeholder="Usuario">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input type="text" id="password" name="password" class="fadeIn second" placeholder="Contraseña">
+          </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--          <div class="col">-->
+        <!--            <input type="text" id="password-confirm" name="telephone" class="fadeIn second"-->
+        <!--                   placeholder="Confirma Contraseña">-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </div>
+
       <br>
       <a mat-button color="primary" routerLink="/login">Volver al Inicio de Sesion</a>
+      <!--      routerLink="/dashboard"-->
+      <input type="button" name="Login" id="go" class="fadeIn fourth" value="Registrarse" (click)="registrarUsuario()">
+<!--      <button type="button" class="fadeIn fourth" (click)="registrarUsuario()">Registrar</button>-->
     </form>
+
+    <!--    <form>-->
+    <!--&lt;!&ndash;      <input type="text" id="username" name="username" class="fadeIn second" placeholder="Usuario" >&ndash;&gt;-->
+    <!--      <input type="text" id="email" name="email" class="fadeIn second" placeholder="Email" >-->
+    <!--      <input type="password" id="password" name="password" class="fadeIn third" placeholder="Contraseña">-->
+    <!--      <br>-->
+    <!--      <input type="submit" name="Login" id="go" class="fadeIn fourth" value="Registrarse" routerLink="/dashboard">-->
+    <!--      <br>-->
+    <!--      <a mat-button color="primary" routerLink="/login">Volver al Inicio de Sesion</a>-->
+    <!--    </form>-->
 
   </div>
 </div>
