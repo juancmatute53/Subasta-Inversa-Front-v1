@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UsuarioCrudService} from "../services/usuario-crud.service";
+import {MessageService} from 'primeng/api';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-sign-up',
@@ -7,53 +10,75 @@ import {UsuarioCrudService} from "../services/usuario-crud.service";
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  formRegistroUsuario: any;
 
-  nombre='';
-
-  constructor(private _usuarioCrudService: UsuarioCrudService) { }
+  constructor(private _usuarioCrudService: UsuarioCrudService,
+              private _messageService: MessageService,
+              private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.crearFormularioRegistro();
+  }
+
+  crearFormularioRegistro(){
+
+    //const formRegistroUsuario;
+    this.formRegistroUsuario = this._formBuilder.group({
+      nombrePersona: ['', [Validators.required]],
+      apellidoPersona: ['', [Validators.required]],
+      emailPersona: ['', [Validators.required]],
+      direccionPersona: ['', [Validators.required]],
+      telefonoPersona: ['', [Validators.required]],
+      aniosExpProveedor: ['', [Validators.required]],
+      nombreUsuario: ['', [Validators.required]],
+      contraseniaUsuario: ['', [Validators.required]],
+    })
   }
 
   registrarUsuario(){
     // @ts-ignore
-    const nombreP = document.getElementById("fristname").value;
+    const nombreP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const apellidoP = document.getElementById("lastname").value;
+    const apellidoP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const email = document.getElementById("email").value;
+    const email = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const direccionP = document.getElementById("address").value;
+    const direccionP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const telefonoP = document.getElementById("telephone").value;
+    const telefonoP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const experienciaP = document.getElementById("experience").value;
+    const experienciaP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const userP = document.getElementById("username").value;
+    const userP = this.formRegistroUsuario.get('nombrePersona').value;
     // @ts-ignore
-    const passwordP = document.getElementById("password").value;
+    const passwordP = this.formRegistroUsuario.get('nombrePersona').value;
 
     const user = {
-      nombre: nombreP.toString(),
-      apellido: apellidoP.toString(),
-      email: email.toString(),
-      telefono: telefonoP.toString(),
-      direccion: direccionP.toString(),
+      nombre: nombreP,
+      apellido: apellidoP,
+      email: email,
+      telefono: telefonoP,
+      direccion: direccionP,
       anios_experiencia: experienciaP,
       usuario: {
-        nombreUsuario: userP.toString(),
-        contraseniaUsuario: passwordP.toString()
+        nombreUsuario: userP,
+        contraseniaUsuario: passwordP
       }
     }
 
-    this._usuarioCrudService.crearUsuarioProveedor(user)
-      .then((res) => {
-        console.log('RES ', res)
-      }).catch((err) => {
-      console.log(err.name);
-      console.log(err.status);
-    });
+    // this._usuarioCrudService.crearUsuarioProveedor(user)
+    //   .then((res) => {
+    //     this._usuarioCrudService.getUsers();
+    //     this.addSingle(res.mensaje);
+    //   }).catch((err) => {
+    //   console.log(err.name);
+    //   console.log(err.status);
+    // });
 
-    this._usuarioCrudService.getUsers();
+
+    //this.addSingle();
+  }
+  addSingle(message: string) {
+    this._messageService.add({severity:'success', summary:'Registro Exitoso', detail:message});
   }
 }
