@@ -14,6 +14,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {UsuarioCrudService} from "./components/services/usuario-crud.service";
 import {TabViewModule} from 'primeng/tabview';
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {TabViewModule} from 'primeng/tabview';
     MatButtonModule,
     FileUploadModule,
     HttpClientModule,
-    TabViewModule
+    TabViewModule,
+    FormsModule
   ],
   providers: [
     UsuarioCrudService
