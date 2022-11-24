@@ -12,11 +12,19 @@ import {MatButtonModule} from "@angular/material/button";
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
-import {UsuarioCrudService} from "./components/services/usuario-crud.service";
+import {UsuarioCrudService} from "./components/services/users-crud/usuario-crud.service";
 import {TabViewModule} from 'primeng/tabview';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService, PrimeNGConfig} from 'primeng/api';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {InputTextModule} from 'primeng/inputtext';
+import {DropdownModule} from 'primeng/dropdown';
+import {DialogModule} from "primeng/dialog";
+import {SliderModule} from "primeng/slider";
+import {CardModule} from "primeng/card";
+import {TableModule} from "primeng/table";
+import {InputMaskModule} from "primeng/inputmask";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
   declarations: [
@@ -38,11 +46,21 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     TabViewModule,
     ToastModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTextModule,
+    DropdownModule,
+    DialogModule,
+    SliderModule,
+    CardModule,
+    TableModule,
+    InputMaskModule,
+    ConfirmDialogModule
   ],
   providers: [
     UsuarioCrudService,
     MessageService,
+    PrimeNGConfig,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })
