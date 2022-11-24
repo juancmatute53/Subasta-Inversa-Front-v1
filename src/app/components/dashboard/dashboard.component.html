@@ -198,15 +198,21 @@
       </div>
       <div class="modal-body">
         <!--Layout-->
+
         <form class="row g-3">
+
+          <div class="text-center">
+            <img src="assets/add_photo.png" class="img-fluid rounded-circle" width="130px"/>
+          </div>
+          <input class="form-control" type="file" id="archivo">
 
           <div class="col-md-6">
             <label for="inputNombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="inputNombre">
           </div>
           <div class="col-md-6">
-            <label for="inputPrecio" class="form-label">Precio</label>
-            <input type="text" class="form-control" id="inputPrecio">
+            <label for="inputFechI" class="form-label">Fecha de inicio</label>
+            <input type="date" class="form-control" id="inputFechI">
           </div>
 
           <div class="col-md-6">
@@ -216,7 +222,7 @@
 
           <div class="col-md-6">
             <label for="inputFech" class="form-label">Fecha de cierre</label>
-            <input type="text" class="form-control" id="inputFech">
+            <input type="date" class="form-control" id="inputFech">
           </div>
 
           <div class="col-md-6">
@@ -230,7 +236,7 @@
 
           <div class="col-md-6">
             <label for="inputHc" class="form-label">Hora de cierre</label>
-            <input type="text" class="form-control" id="inputHc">
+            <input type="time" class="form-control" id="inputHc">
           </div>
         </form>
       </div>
@@ -460,7 +466,7 @@
   </div>
 </div>
 
-<!--Modal de Servicios Contratados-->
+<!--Modal de Pefil de Usuario-->
 
 <div class="modal" tabindex="-1" id="ventanaModalPerfil">
   <div class="modal-dialog modal-lg">
@@ -472,19 +478,22 @@
       <div class="modal-body">
         <!--Tabla-->
         <form class="row g-3">
+          <div class="text-center">
+            <img src="assets/user-2.jpg" class="img-fluid rounded-circle" width="130px"/>
 
+          </div>
           <div class="col-md-6">
             <label for="inputNombreP" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="inputNombreP">
           </div>
           <div class="col-md-6">
-            <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <label for="inputTelefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="inputTelefono">
           </div>
 
           <div class="col-md-6">
-            <label for="inputApellidoP" class="form-label">Apellido Paterno</label>
-            <input type="text" class="form-control" id="inputApellidoP">
+            <label for="inputApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido">
           </div>
 
           <div class="col-md-6">
@@ -493,8 +502,8 @@
           </div>
 
           <div class="col-md-6">
-            <label for="inputApellidoM" class="form-label">Apellido Materno</label>
-            <input type="text" class="form-control" id="inputApellidoM">
+            <label for="inputDireccion" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="inputDireccion">
           </div>
 
           <div class="col-md-6">
@@ -503,16 +512,78 @@
           </div>
 
           <div class="col-md-6">
-            <label for="inputEdad" class="form-label">Edad</label>
-            <input type="text" class="form-control" id="inputEdad">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail">
           </div>
-
         </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ventanaModalPerfil2">Actualizar Informacion</button>
       </div>
     </div>
   </div>
 </div>
 
+
+<!--Modal de ACTUALIZARR Pefil de Usuario-->
+
+<div class="modal" tabindex="-1" id="ventanaModalPerfil2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Actualizar Perfil de Usuario</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--Tabla-->
+        <form class="row g-3">
+          <div class="text-center">
+            <img src="assets/user-2.jpg" class="img-fluid rounded-circle" width="130px"/>
+          </div>
+          <input class="form-control" type="file" id="archivo2">
+          <div class="col-md-6">
+            <label for="inputNombreP2" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombreP2">
+          </div>
+          <div class="col-md-6">
+            <label for="inputTelefono2" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="inputTelefono2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputApellido2" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputUsuario2" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="inputUsuario2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputDireccion2" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="inputDireccion2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputPassword2" class="form-label">Contraseña</label>
+            <input type="text" class="form-control" id="inputPassword2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputEmail2" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail2">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--Modal de Contratar servicios-->
 
