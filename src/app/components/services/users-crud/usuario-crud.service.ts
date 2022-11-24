@@ -22,6 +22,17 @@ export class UsuarioCrudService {
     ).toPromise();
   }
 
+  // * TODO CRUD USUARIO PROVEEDOR
+  crearUsuarioCliente(data: any): Promise<any> {
+    //console.log(data);
+    return this._http.post('http://localhost:9090/cliente/crear',
+      data,
+      {
+        headers: this.headers
+      }
+    ).toPromise();
+  }
+
   getUsers(){
     this._http.get('http://localhost:9090/proveedor/listar').subscribe(data => {
       console.log(data);
