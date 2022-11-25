@@ -14,7 +14,7 @@ export class UsuarioCrudService {
   // * TODO CRUD USUARIO PROVEEDOR
   crearUsuarioProveedor(data: any): Promise<any> {
     //console.log(data);
-    return this._http.post('http://localhost:9090/proveedor/crear',
+    return this._http.post('http://localhost:9090/auth/proveedor/crear/',
       data,
       {
         headers: this.headers
@@ -25,7 +25,7 @@ export class UsuarioCrudService {
   // * TODO CRUD USUARIO PROVEEDOR
   crearUsuarioCliente(data: any): Promise<any> {
     //console.log(data);
-    return this._http.post('http://localhost:9090/cliente/crear',
+    return this._http.post('http://localhost:9090/auth/cliente/crear',
       data,
       {
         headers: this.headers
@@ -33,9 +33,7 @@ export class UsuarioCrudService {
     ).toPromise();
   }
 
-  getUsers(){
-    this._http.get('http://localhost:9090/proveedor/listar').subscribe(data => {
-      console.log(data);
-    });
+  obtenerUsuarios(): Promise<any>{
+   return  this._http.get('http://localhost:9090/proveedor/listar').toPromise()
   }
 }
