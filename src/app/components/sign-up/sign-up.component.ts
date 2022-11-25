@@ -144,26 +144,40 @@ export class SignUpComponent implements OnInit {
 
   // * Registras usuarios proveedor
   agregarUsuarioProveedor(data: any): void{
+    let mensaje_back = '';
+    let mensaje = '';
     this._usuarioCrudService.crearUsuarioProveedor(data)
       .then((res) => {
         this.addSingle(res.mensaje, 'success','Registro exitoso');
         this.registroExitoso = true;
       }).catch((err) => {
       this.registroExitoso = false;
-      const mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a: '+err.error.mensaje;
+      if (err.error.mensaje != null){
+        mensaje_back = err.error.mensaje;
+        mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a: '+mensaje_back;
+      }else {
+        mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a un error desconocido';
+      }
       this.addSingle(mensaje, 'error','Erro al tratar registrar usuario');
     });
   }
 
   // * Registras usuarios clientes
   agregarUsuarioCliente(data: any): void{
+    let mensaje_back = '';
+    let mensaje = '';
     this._usuarioCrudService.crearUsuarioCliente(data)
       .then((res) => {
         this.addSingle(res.mensaje, 'success','Registro exitoso');
         this.registroExitoso = true;
       }).catch((err) => {
       this.registroExitoso = false;
-      const mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a: '+err.error.mensaje;
+      if (err.error.mensaje != null){
+        mensaje_back = err.error.mensaje;
+        mensaje = mensaje_back;
+      }else {
+        mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a un error desconocido';
+      }
       // @ts-ignore
       this.addSingle(mensaje, 'error','Erro al tratar registrar usuario: ');
     });

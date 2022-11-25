@@ -12,6 +12,6 @@ export class ServiciosService {
 
   // * Peticion GET que retorna una Promesa
   obtenerServicios(): Promise<any> {
-    return  this._http.get('http://localhost:9090/servicio/listar').toPromise();
+    return  this._http.get('http://localhost:9090/auth/servicio/listar').toPromise();
   }
 }
