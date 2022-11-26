@@ -1,6 +1,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@1,300&family=Montserrat:wght@700&display=swap');
 
+
+:host ::ng-deep .p-dialog .product-image {
+  width: 150px;
+  margin: 0 auto 2rem auto;
+  display: block;
+}
+
+
 *{
   padding: 0;
   margin: 0;
@@ -22,7 +30,7 @@ h1{
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   background-size: cover;
   background-position: top center;
   position: relative;
@@ -142,18 +150,31 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=password] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
+.comboRol{
   padding: 15px 32px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   margin: 5px;
   width: 85%;
-  border: 2px solid #f6f6f6;
+}
+
+.contenedor{
+  background-image: url("https://i.postimg.cc/76xrH8RQ/fondo-op2.png");
+  background-repeat: no-repeat;
+  width: 100%; height: 100vh;
+  background-position: bottom;
+  background-position-x: right;
+
+  /*margin-top: -300px;*/
+  /*margin-left: 950px;*/
+}
+
+input[type=password] {
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 12px;
+  margin: 5px;
+  width: 85%;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -173,17 +194,11 @@ input[type=password]:placeholder {
 }
 
 input[type=text] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
   padding: 15px 32px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   margin: 5px;
   width: 85%;
-  border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -200,6 +215,73 @@ input[type=text]:focus {
 
 input[type=text]:placeholder {
   color: #cccccc;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-mask{
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 12px;
+  margin: 5px;
+  width: 85%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+.input-mask:focus{
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+.input-mask:placeholder {
+  color: #cccccc;
+}
+
+
+.t-registro {
+  font-size:30px;
+  text-align:center;
+  line-height:1.5em;
+  padding-bottom:45px;
+  font-family:"Playfair Display", serif;
+  text-transform:uppercase;
+  letter-spacing: 2px;
+  color:#111;
+}
+
+
+.t-registro:before {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  width: 60%;
+  left:50%; margin-left:-30%;
+  height: 1px;
+  content: "";
+  background-color: #777; z-index: 4;
+}
+.t-registro:after {
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:50%;
+  margin-left:-20px;
+  bottom:0px;
+  content: url("https://i.postimg.cc/QtsLMQvx/logo-op2-small-super-2.png");
+  font-size:30px;
+  line-height:40px;
+  color:#c50000;
+  font-weight:400;
+  z-index: 5;
+  display:block;
 }
 
 
