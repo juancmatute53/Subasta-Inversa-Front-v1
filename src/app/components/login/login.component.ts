@@ -56,8 +56,8 @@ export class LoginComponent implements OnInit {
       this._tokenService.setAuthorities(res.authorities);
       this.roles = res.authorities;
       this.addSingle("Logueo exitoso", "success", "Logueo")
+      this._router.navigate(['/dashboard']);
     }).catch(err =>{
-      console.log('ERROR ', err.status);
       this.isLogin = false;
       this.isLoginFail = true;
       if (err.status === 401){

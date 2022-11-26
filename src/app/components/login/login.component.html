@@ -10,10 +10,10 @@
       <input formControlName="nombreUsuario" type="text" id="email" name="username" class="fadeIn second" placeholder="Usuario">
       <input formControlName="contrasenia" type="password" id="password" name="password" class="fadeIn third mb-3" placeholder="Contraseña">
 <!--      routerLink="/dashboard"-->
-      <input type="submit" name="Login" id="go" class="fadeIn fourth mb-5" value="INICIAR SESIÓN" (click)="onLogin()" [routerLink]="isLogin ? ['/dashboard'] : []">
+      <input type="submit" name="Login" id="go" class="fadeIn fourth mb-5" value="INICIAR SESIÓN" (click)="onLogin()">
 
       <br>
-      <a mat-button color="primary" routerLink="/sign-up">¿Aun no tienes una cuenta? Registrate Ahora</a>consumo
+      <a mat-button color="primary" routerLink="/sign-up">¿Aun no tienes una cuenta? Registrate Ahora</a>
 
     </form>
   </div>
