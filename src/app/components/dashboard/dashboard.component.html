@@ -1,5 +1,5 @@
 <div class="d-flex" id="content-wrapper">
-
+  <p-toast></p-toast>
   <!-- Sidebar -->
   <div id="sidebar-container" class="bg-primary">
     <div class="logo">
@@ -25,7 +25,6 @@
   <div class="w-100">
 
     <!-- Navbar -->
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div class="container">
 
@@ -73,27 +72,21 @@
       </section>
 
 
-
       <!--Cards de productos-->
       <section class="bg-mix py-3">
-        <div class="container">
-          <div class="card" style="width: 18rem;">
-            <img src="assets/elec1.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Servicio Electrico</h5>
-              <p class="card-text">
-                0 dias 01 hora 25 minutos
-                <br>
-                El mejor servicio electrico del Austro.
-                <br>
-                Numero de ofertas: 2
-              </p>
-              <div class="d-grid gap-2 ">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ventanaModalSubastar">
-                  Ofertar
-                </button>
-              </div>
-
+        <div class="container text-center">
+          <div class="row">
+            <div class="col p-2 mt-2" *ngFor="let subasta of subastasBD">
+              <p-card header="{{subasta.tituloSubasta}}" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                  <img alt="Card" src="assets/showcase/images/usercard.png">
+                </ng-template>
+                <p>{{subasta.descripcionSubasta}}</p>
+                <ng-template pTemplate="footer">
+                  <p-button label="Save" icon="pi pi-check"></p-button>
+                  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+                </ng-template>
+              </p-card>
             </div>
           </div>
         </div>
@@ -199,6 +192,7 @@
     </div>
   </div>
 </div>
+
 
 <!--Modal de Monitoreo-->
 

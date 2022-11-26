@@ -14,4 +14,5 @@ export class ServiciosService {
   obtenerServicios(): Promise<any> {
     return  this._http.get('http://localhost:9090/auth/servicio/listar').toPromise();
   }
+
 }

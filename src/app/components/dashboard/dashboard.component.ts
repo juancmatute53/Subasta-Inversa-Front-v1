@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService} from "primeng/api";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ServiciosService} from "../services/servicios-crud/servicios.service";
 import {TokenService} from "../services/token/token.service";
+import {SubastaCrudService} from "../services/subasta/subasta-crud.service";
+import {ClienteCrudService} from "../services/cliente/cliente-crud.service";
+import {Subastas} from "../../models/subastas";
 
 interface Servicio {
   name: string,
@@ -18,15 +21,21 @@ export class DashboardComponent implements OnInit {
 
   formNuevaSubasta: any;
   serviciosBD: Servicio[] = [];
+  // @ts-ignore
+  subastasBD: Subastas[] = [];
 
   constructor(private _messageService: MessageService,
               private _formBuilder: FormBuilder,
               private _servios: ServiciosService,
-              private _tokenService: TokenService) { }
+              private _tokenService: TokenService,
+              private _subastaCrudService: SubastaCrudService,
+              private _clienteCrudService: ClienteCrudService) {
+  }
 
   ngOnInit(): void {
     this.crearFormSubasta();
     this.obtenerServicios();
+    this.obtenerSubastas();
   }
 
   crearFormSubasta(): void {
@@ -50,6 +59,33 @@ export class DashboardComponent implements OnInit {
     const horaCierreSubasta = this.formNuevaSubasta.get('horaCierreSubasta').value;
     const imagenSubasta = this.formNuevaSubasta.get('imagenSubasta').value;
 
+    let cliente;
+    this._clienteCrudService.filtrarCliente(this._tokenService.getUserName()).then(res => {
+      cliente = res[0].id_persona;
+      const nuevaSubasta = {
+        tituloSubasta: tituloSubasta,
+        horaCierreSubasta: horaCierreSubasta,
+        fechaInicio: fechaInicioSubasta,
+        fechaFin: fechaFinSubasta,
+        estadoSubasta: "Abierta",
+        descripcionSubasta: descripcionSubasta,
+        imgSubasta: imagenSubasta,
+        cliente: {
+          id_persona: cliente
+        },
+        servicio: {
+          idServicio: servioSolicitado.id
+        }
+      }
+
+      this._subastaCrudService.crearSubasta(nuevaSubasta).then(res => {
+        this.addSingle('Subasta generada correctamente', 'success', 'Registro Subasta');
+      }).catch(err => {
+        this.addSingle(err.message, 'error', 'Error');
+      })
+    }).catch(err => {
+      this.addSingle(err.message, 'error', 'Error');
+    })
   }
 
   // * Obtenemo los servicios
@@ -65,7 +101,20 @@ export class DashboardComponent implements OnInit {
       });
     }).catch(err => {
       this.addSingle(err.message, 'error', 'Error');
-    })
+    });
+  }
+
+  obtenerSubastas(): void {
+    this._subastaCrudService.obtenerSubasta().then(res => {
+      this.subastasBD = res;
+      console.log(this.subastasBD[0].tituloSubasta);
+      // res.forEach((item: any) =>{
+      //   // @ts-ignore
+      //   this.subastasBD.push(item);
+      // })
+    }).catch(err => {
+      this.addSingle(err.message, 'error', 'Error');
+    });
   }
 
 
@@ -73,7 +122,7 @@ export class DashboardComponent implements OnInit {
     this._messageService.add({severity: severity, summary: summary, detail: message});
   }
 
-  cerrarSesion(): void{
+  cerrarSesion(): void {
     this._tokenService.logOut();
     window.location.reload();
   }
