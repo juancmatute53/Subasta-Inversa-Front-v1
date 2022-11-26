@@ -49,7 +49,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" data-toggle="modal" data-target="#ventanaModalPerfil">Mi perfil</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/login">Cerrar sesión</a>
+                <a class="dropdown-item" href="/login" (click)="cerrarSesion()">Cerrar sesión</a>
               </div>
             </li>
           </ul>
@@ -72,60 +72,7 @@
         </div>
       </section>
 
-      <section class="bg-mix py-3">
-        <div class="container">
-          <div class="card rounded-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                  <div class="mx-auto">
-                    <h6 class="text-muted">Subastas Activas</h6>
-                    <h3 class="font-weight-bold">5</h3>
-                    <h6>
-                      <button type="button" class="btn btn-primary" data-toggle="modal"
-                              data-target="#ventanaModalSubAct">Ver mas
-                      </button>
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                  <div class="mx-auto">
-                    <h6 class="text-muted">Subastas Cerradas</h6>
-                    <h3 class="font-weight-bold">1</h3>
-                    <h6>
-                      <button type="button" class="btn btn-primary" data-toggle="modal"
-                              data-target="#ventanaModalSubCer">Ver mas
-                      </button>
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                  <div class="mx-auto">
-                    <h6 class="text-muted">Subastas Realizadas</h6>
-                    <h3 class="font-weight-bold">3</h3>
-                    <h6>
-                      <button type="button" class="btn btn-primary" data-toggle="modal"
-                              data-target="#ventanaModalSubRea">Ver mas
-                      </button>
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex my-3">
-                  <div class="mx-auto">
-                    <h6 class="text-muted">Servicios Contratados</h6>
-                    <h3 class="font-weight-bold">2</h3>
-                    <h6>
-                      <button type="button" class="btn btn-primary" data-toggle="modal"
-                              data-target="#ventanaModalSerCon">Ver mas
-                      </button>
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       <!--Cards de productos-->
       <section class="bg-mix py-3">
@@ -198,45 +145,56 @@
       </div>
       <div class="modal-body">
         <!--Layout-->
-        <form class="row g-3">
+
+        <form class="row g-3" [formGroup]="formNuevaSubasta">
+
+          <div class="text-center">
+            <img src="assets/add_photo.png" class="img-fluid rounded-circle" width="130px"/>
+          </div>
+          <input class="form-control" type="file" id="archivo" formControlName="imagenSubasta">
 
           <div class="col-md-6">
             <label for="inputNombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="inputNombre">
+            <input type="text" class="form-control" id="inputNombre" formControlName="tituloSubasta">
           </div>
           <div class="col-md-6">
-            <label for="inputPrecio" class="form-label">Precio</label>
-            <input type="text" class="form-control" id="inputPrecio">
+            <label for="inputFechI" class="form-label">Fecha de inicio</label>
+            <input type="date" class="form-control" id="inputFechI" formControlName="fechaInicioSubasta">
           </div>
 
           <div class="col-md-6">
             <label for="inputDes" class="form-label">Descripcion</label>
-            <input type="text" class="form-control" id="inputDes">
+            <input type="text" class="form-control" id="inputDes" formControlName="descripcionSubasta">
           </div>
 
           <div class="col-md-6">
             <label for="inputFech" class="form-label">Fecha de cierre</label>
-            <input type="text" class="form-control" id="inputFech">
+            <input type="date" class="form-control" id="inputFech" formControlName="fechaFinSubasta">
           </div>
 
           <div class="col-md-6">
-            <label class="form-label">Categoria</label>
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-              <option selected>Seleccione Categoría</option>
-              <option value="1">Electricidad</option>
-              <option value="2">Plomeria</option>
-            </select>
+            <label class="form-label">Servicio solicitado</label>
+            <br>
+            <p-dropdown
+              [options]="serviciosBD"
+              [filter]="true"
+              filterBy="name"
+              [showClear]="true"
+              placeholder="Seleccione un servicio"
+              optionLabel="name"
+              formControlName="servioSolicitado">
+            </p-dropdown>
           </div>
 
           <div class="col-md-6">
             <label for="inputHc" class="form-label">Hora de cierre</label>
-            <input type="text" class="form-control" id="inputHc">
+            <input type="time" class="form-control" id="inputHc" formControlName="horaCierreSubasta">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Agregar Subasta</button>
+        <button type="button" class="btn btn-primary" (click)="crearSubasta()">Agregar Subasta</button>
       </div>
     </div>
   </div>
@@ -394,7 +352,6 @@
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Categoria</th>
-            <th scope="col">Precio</th>
             <th scope="col">Fecha Cierre</th>
             <th scope="col">Hora Cierre</th>
           </tr>
@@ -402,13 +359,12 @@
           <tbody>
           <tr>
             <th scope="row">1</th>
-            <td></td>
+            <td>Add img</td>
             <td>Servicio Electrico</td>
             <td>El mejor servicio electrico del Austro</td>
             <td>Electricidad</td>
-            <td>$35.00</td>
             <td>20/11/2022</td>
-            <td>12:00</td>
+            <td>20/11/2022</td>
           </tr>
           </tbody>
         </table>
@@ -460,7 +416,7 @@
   </div>
 </div>
 
-<!--Modal de Servicios Contratados-->
+<!--Modal de Pefil de Usuario-->
 
 <div class="modal" tabindex="-1" id="ventanaModalPerfil">
   <div class="modal-dialog modal-lg">
@@ -472,19 +428,22 @@
       <div class="modal-body">
         <!--Tabla-->
         <form class="row g-3">
+          <div class="text-center">
+            <img src="assets/user-2.jpg" class="img-fluid rounded-circle" width="130px"/>
 
+          </div>
           <div class="col-md-6">
             <label for="inputNombreP" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="inputNombreP">
           </div>
           <div class="col-md-6">
-            <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <label for="inputTelefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="inputTelefono">
           </div>
 
           <div class="col-md-6">
-            <label for="inputApellidoP" class="form-label">Apellido Paterno</label>
-            <input type="text" class="form-control" id="inputApellidoP">
+            <label for="inputApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido">
           </div>
 
           <div class="col-md-6">
@@ -493,8 +452,8 @@
           </div>
 
           <div class="col-md-6">
-            <label for="inputApellidoM" class="form-label">Apellido Materno</label>
-            <input type="text" class="form-control" id="inputApellidoM">
+            <label for="inputDireccion" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="inputDireccion">
           </div>
 
           <div class="col-md-6">
@@ -503,16 +462,78 @@
           </div>
 
           <div class="col-md-6">
-            <label for="inputEdad" class="form-label">Edad</label>
-            <input type="text" class="form-control" id="inputEdad">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail">
           </div>
-
         </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ventanaModalPerfil2">Actualizar Informacion</button>
       </div>
     </div>
   </div>
 </div>
 
+
+<!--Modal de ACTUALIZARR Pefil de Usuario-->
+
+<div class="modal" tabindex="-1" id="ventanaModalPerfil2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Actualizar Perfil de Usuario</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--Tabla-->
+        <form class="row g-3">
+          <div class="text-center">
+            <img src="assets/user-2.jpg" class="img-fluid rounded-circle" width="130px"/>
+          </div>
+          <input class="form-control" type="file" id="archivo2">
+          <div class="col-md-6">
+            <label for="inputNombreP2" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombreP2">
+          </div>
+          <div class="col-md-6">
+            <label for="inputTelefono2" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="inputTelefono2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputApellido2" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputUsuario2" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="inputUsuario2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputDireccion2" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="inputDireccion2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputPassword2" class="form-label">Contraseña</label>
+            <input type="text" class="form-control" id="inputPassword2">
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputEmail2" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail2">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--Modal de Contratar servicios-->
 
