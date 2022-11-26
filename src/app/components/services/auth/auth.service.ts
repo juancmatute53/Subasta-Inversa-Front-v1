@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LoginUsuario} from "../../models/login-usuario";
-import {JwtDTO} from "../../models/jwt-dto";
+import {LoginUsuario} from "../../../models/login-usuario";
+import {JwtDTO} from "../../../models/jwt-dto";
 
 @Injectable({
   providedIn: 'root'
