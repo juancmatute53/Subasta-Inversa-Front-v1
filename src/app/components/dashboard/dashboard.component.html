@@ -18,6 +18,14 @@
         class="icon ion-md-bookmark lead mr-2"></i>
         Nueva Categoria</a>
 
+      <a data-toggle="modal" data-target="#ventanaModalSubRealizadas" class="d-block text-light p-3 border-0"><i
+        class="icon ion-md-time lead mr-2"></i>
+        Hisorial Subastas Realizadas</a>
+
+      <a data-toggle="modal" data-target="#ventanaModalSubOfertadas" class="d-block text-light p-3 border-0"><i
+        class="icon ion-md-time lead mr-2"></i>
+        Histoial Subasas Ofertadas</a>
+
     </div>
   </div>
 
@@ -592,6 +600,88 @@
           </div>
 
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DE HISTORIAL DE SUBASTAS REALIZADAS-->
+<div class="modal" tabindex="-1" id="ventanaModalSubRealizadas">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Historial de Subastas Realizadas</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--Tabla-->
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Fecha de Publicacion</th>
+            <th scope="col">Fecha de Cierre</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DE HISTORIAL DE SUBASTAS PUJADAS-->
+<div class="modal" tabindex="-1" id="ventanaModalSubOfertadas">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Historial de Subastas Ofertadas</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--Tabla-->
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Fecha de contrato</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
