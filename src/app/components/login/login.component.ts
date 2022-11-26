@@ -4,7 +4,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {TokenService} from "../services/token/token.service";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
-import {LoginUsuario} from "../models/login-usuario";
+import {LoginUsuario} from "../../models/login-usuario";
 import {MessageService} from "primeng/api";
 import {of} from "rxjs";
 

@@ -36,7 +36,7 @@
     <div class="row mt-5">
       <div class="mt-3 shadow p-3 mb-5 bg-body rounded">
         <p-table #dt [value]="serviciosAgregados" [rows]="10" [paginator]="true"
-                 [globalFilterFields]="['name','country.name','representative.name','status']"
+                 [globalFilterFields]="['name']"
                  [tableStyle]="{'min-width': '75rem'}" [rowHover]="true" dataKey="id"
                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                  [showCurrentPageReport]="true">
