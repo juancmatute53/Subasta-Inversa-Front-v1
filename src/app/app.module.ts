@@ -25,6 +25,7 @@ import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
 import {InputMaskModule} from "primeng/inputmask";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {interceptorProvider} from "./interceptors/prod-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     UsuarioCrudService,
     MessageService,
     PrimeNGConfig,
-    ConfirmationService
+    ConfirmationService,
+    interceptorProvider
   ],
   bootstrap: [AppComponent]
 })

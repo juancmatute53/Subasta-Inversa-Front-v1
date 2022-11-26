@@ -5,12 +5,13 @@ import {LoginComponent} from "./components/login/login.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {PagenotfoundComponent} from "./components/pagenotfound/pagenotfound.component";
+import {ProdGuardService as guard} from "./interceptors/prod-guard.service";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [guard], data: {expectedRol:['admin', 'proveedor', 'cliente']}},
   {path: 'sign-up', component: SignUpComponent},
   {path: '**', component: PagenotfoundComponent},
 ];
