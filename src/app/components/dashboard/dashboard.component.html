@@ -80,7 +80,7 @@
       </section>
 
 
-      <!--Cards de productos-->
+      <!--Cards de subastas-->
       <section class="bg-mix py-3">
         <div class="container text-center">
           <div class="row">
@@ -394,6 +394,7 @@
 
           <div class="container">
             <div class="row">
+              <div *ngIf="ofertasPorSubasta.length === 0">Aun no se han registrado ofertas</div>
               <div *ngFor="let ofer of ofertasPorSubasta" class="col mt-3">
                 <p-card
                   header="{{ofer.proveedor.nombre +' '+ ofer.proveedor.apellido}}"

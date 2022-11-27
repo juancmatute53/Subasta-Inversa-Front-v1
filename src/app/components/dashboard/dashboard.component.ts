@@ -38,8 +38,7 @@ export class DashboardComponent implements OnInit {
   ofertasAcomuladas: [] = [];
   ofertasPorSubasta: any[] = [];
 
-  dataClinte: [] = [];
-  dataProveedor: [] = [];
+  dataUsuario: [] = [];
 
   posicionDialogOferta = 'right';
   mostrarDialogOferta = false;
@@ -67,7 +66,6 @@ export class DashboardComponent implements OnInit {
         this.rol = 'cliente';
         this.obtenerDataCliente();
         this.obtenerSubastasEstado();
-        this.obtenerOfertas();
         this.responsiveOptions = [
           {
             breakpoint: '1024px',
@@ -94,7 +92,11 @@ export class DashboardComponent implements OnInit {
         this.rol = 'admin';
         break;
     }
+
     this.crearFormServicio();
+
+    this.obtenerOfertas();
+
     this.crearFormSubasta();
     this.crearFormOferta();
     this.obtenerServicios();
@@ -256,9 +258,9 @@ export class DashboardComponent implements OnInit {
 
   obtenerDataCliente(): void{
     this._clienteCrudService.filtrarCliente(this._tokenService.getUserName()).then(res =>{
-      this.dataClinte = res[0];
+      this.dataUsuario = res[0];
       // @ts-ignore
-      this.nombreUserLog = this.dataClinte.nombre+' '+this.dataClinte.apellido;
+      this.nombreUserLog = this.dataUsuario.nombre+' '+this.dataUsuario.apellido;
     }).catch(err =>{
       this.addSingle(err.message, 'error', 'Error');
     })
@@ -266,9 +268,9 @@ export class DashboardComponent implements OnInit {
 
   obtenerDataProveedor(): void{
     this._proveedroCrudService.filtrarProveedor(this._tokenService.getUserName()).then(res =>{
-      this.dataProveedor = res[0];
+      this.dataUsuario = res[0];
       // @ts-ignore
-      this.nombreUserLog = this.dataProveedor.nombre+' '+this.dataProveedor.apellido;
+      this.nombreUserLog = this.dataUsuario.nombre+' '+this.dataUsuario.apellido;
     }).catch(err =>{
       this.addSingle(err.message, 'error', 'Error');
     })
