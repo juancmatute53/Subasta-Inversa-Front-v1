@@ -4,6 +4,7 @@ import {ConfirmationService, MessageService, PrimeNGConfig} from 'primeng/api';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginComponent} from "../login/login.component";
 import {ServiciosService} from "../services/servicios-crud/servicios.service";
+import {Router} from "@angular/router";
 
 interface Categoria {
   name: string,
@@ -45,7 +46,8 @@ export class SignUpComponent implements OnInit {
               private _formBuilder: FormBuilder,
               private _servios: ServiciosService,
               private primengConfig: PrimeNGConfig,
-              private _confirmationService: ConfirmationService) {
+              private _confirmationService: ConfirmationService,
+              private _route: Router) {
   }
 
   ngOnInit(): void {
@@ -150,11 +152,13 @@ export class SignUpComponent implements OnInit {
       .then((res) => {
         this.addSingle(res.mensaje, 'success','Registro exitoso');
         this.registroExitoso = true;
+        this._route.navigate(['/dashboard']);
       }).catch((err) => {
+      console.log('ERR ',err);
       this.registroExitoso = false;
       if (err.error.mensaje != null){
         mensaje_back = err.error.mensaje;
-        mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a: '+mensaje_back;
+        mensaje = mensaje_back;
       }else {
         mensaje = 'Error tipo: ' + err.name + ' Codigo: ' + err.status + ' debido a un error desconocido';
       }
@@ -170,6 +174,7 @@ export class SignUpComponent implements OnInit {
       .then((res) => {
         this.addSingle(res.mensaje, 'success','Registro exitoso');
         this.registroExitoso = true;
+        this._route.navigate(['/dashboard']);
       }).catch((err) => {
       this.registroExitoso = false;
       if (err.error.mensaje != null){

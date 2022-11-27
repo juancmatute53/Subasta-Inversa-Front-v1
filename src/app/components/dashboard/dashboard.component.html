@@ -84,15 +84,19 @@
       <section class="bg-mix py-3">
         <div class="container text-center">
           <div class="row">
+            <div *ngIf="subastasBD.length === 0">No hay subastas para mostrar</div>
             <div class="col p-2 mt-2" *ngFor="let subasta of subastasBD">
-              <p-card header="{{subasta.tituloSubasta}}" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow">
+              <p-card header="{{subasta.tituloSubasta}}" subheader="Card Subheader" [style]="{width: '360px'}"
+                      styleClass="p-card-shadow">
                 <ng-template pTemplate="header">
                   <img alt="Card" src="assets/showcase/images/usercard.png">
                 </ng-template>
                 <p>{{subasta.descripcionSubasta}}</p>
                 <ng-template pTemplate="footer">
-                  <p-button label="Save" icon="pi pi-check"></p-button>
-                  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal"
+                          (click)="observarSubastaSelected(subasta)">
+                    Ofertar
+                  </button>
                 </ng-template>
               </p-card>
             </div>
@@ -160,7 +164,8 @@
           </div>
           <div class="col-md-6">
             <label for="inputFechI" class="form-label">Fecha de inicio</label>
-            <input type="date" class="form-control" id="inputFechI" formControlName="fechaInicioSubasta">
+            <input type="date" class="form-control" [placeholder]="fechaActual" id="inputFechI"
+                   formControlName="fechaInicioSubasta">
           </div>
 
           <div class="col-md-6">
@@ -471,7 +476,9 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ventanaModalPerfil2">Actualizar Informacion</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ventanaModalPerfil2">Actualizar
+          Informacion
+        </button>
       </div>
     </div>
   </div>
@@ -537,67 +544,36 @@
   </div>
 </div>
 
-<!--Modal de Contratar servicios-->
-
-<div class="modal" tabindex="-1" id="ventanaModalSubastar">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pugar Servicio</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <!--Tabla-->
-
-        <img class="mx-auto d-block" src="assets/elec1.png" width="200px" height="200px">
-        <br>
-
-        <form class="row g-3">
-          <div class="row mb-3">
-            <label for="nomSer" class="col-sm-2 col-form-label col-form-label-sm">Servicio:</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control form-control-sm" id="nomSer" placeholder="Servicio Electrico">
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <label for="desServicio" class="col-sm-2 col-form-label col-form-label-sm">Descripcion:</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control form-control-sm" id="desServicio"
-                     placeholder="El mejor servicio electrico del Austro.">
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <label for="fechaPub" class="col-sm-2 col-form-label col-form-label-sm">Publicacion:</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control form-control-sm" id="fechaPub" placeholder="15/11/2022">
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <label for="fechaEnd" class="col-sm-2 col-form-label col-form-label-sm">Cierre Subasta:</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control form-control-sm" id="fechaEnd" placeholder="23/11/2022">
-            </div>
-          </div>
-
-          <!--Precio y boton de ofertar-->
-          <div class="col-md-6">
-            <label for="inputPrecioS" class="form-label">Ingresar Precio</label>
-            <input type="text" class="form-control" id="inputPrecioS">
-          </div>
-          <div class="col-md-6">
-            <label for="inputOa" class="form-label">Interactuar</label>
-            <button type="button" class="btn btn-primary form-control " id="inputOa">Ofertar Ahora</button>
-          </div>
-
-        </form>
-      </div>
-    </div>
+<!--Modal de Contratar Oferta-->
+<ng-template>
+  <div *ngIf="mostrarAnimacionCarga">
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
   </div>
-</div>
+  <p-dialog header="Realizar oferta" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+            [draggable]="false" [resizable]="false">
+    <p-message severity="info"
+               text="Recuerda que no podrás ver las ofertas de otros proveedores y de la misma manera los
+                demás proveedores no podrá ver tu oferta. Solo el dueño de la subasta
+                podrá ver las ofertas realizadas. Tambien no podrás cambiar el valor de tu oferta
+                una vez hayas publicado el mismo." styleClass="mr-2"></p-message>
+    <form class="row g-3 mt-3" [formGroup]="formNuevaOferta">
+      <!--Precio y boton de ofertar-->
+      <div class="col">
+        <label for="inputPrecioS" class="form-label">Ingresar Precio</label>
+        <input type="number" class="form-control" id="inputPrecioS" formControlName="precioOferta"
+               (change)="observarPrecioOferta()">
+        <small *ngIf="formNuevaOferta.get('precioOferta').hasError('required')
+                        && formNuevaOferta.get('precioOferta').touched" class="text-danger">
+          Debes ingresar un valor a ofertar
+        </small>
+      </div>
+    </form>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="ofertarSubasta()" [disabled]="isValorOferta" label="Ofertar" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+</ng-template>
+
 
 <!--MODAL DE HISTORIAL DE SUBASTAS REALIZADAS-->
 <div class="modal" tabindex="-1" id="ventanaModalSubRealizadas">

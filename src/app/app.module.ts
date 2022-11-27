@@ -26,6 +26,7 @@ import {TableModule} from "primeng/table";
 import {InputMaskModule} from "primeng/inputmask";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {interceptorProvider} from "./interceptors/prod-interceptor.service";
+import {MessageModule} from "primeng/message";
 
 @NgModule({
   declarations: [
@@ -37,26 +38,27 @@ import {interceptorProvider} from "./interceptors/prod-interceptor.service";
     PagenotfoundComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    FileUploadModule,
-    HttpClientModule,
-    TabViewModule,
-    ToastModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    DropdownModule,
-    DialogModule,
-    SliderModule,
-    CardModule,
-    TableModule,
-    InputMaskModule,
-    ConfirmDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        FileUploadModule,
+        HttpClientModule,
+        TabViewModule,
+        ToastModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        DropdownModule,
+        DialogModule,
+        SliderModule,
+        CardModule,
+        TableModule,
+        InputMaskModule,
+        ConfirmDialogModule,
+        MessageModule
+    ],
   providers: [
     UsuarioCrudService,
     MessageService,
