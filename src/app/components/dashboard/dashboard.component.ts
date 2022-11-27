@@ -9,6 +9,7 @@ import {Subastas} from "../../models/subastas";
 import {LoginUsuario} from "../../models/login-usuario";
 import {ProveedorCrudService} from "../services/proveedor/proveedor-crud.service";
 import {OfertaCrudService} from "../services/oferta/oferta-crud.service";
+import {ServicioService} from "../services/serv-servicios/servicio.service";
 
 interface Servicio {
   name: string,
@@ -23,6 +24,7 @@ interface Servicio {
 export class DashboardComponent implements OnInit {
   responsiveOptions: any;
   formNuevaSubasta: any;
+  formNuevoServicio: any;
   formNuevaOferta: any;
   isValorOferta = true;
   displayModal = false;
@@ -43,6 +45,9 @@ export class DashboardComponent implements OnInit {
   nombreUserLog: string = '';
   fechaActual: string = new Date().toLocaleDateString('es-es', {year:"numeric", month:"numeric" ,day:"numeric"});
 
+  //Yo
+
+
   constructor(private _messageService: MessageService,
               private _formBuilder: FormBuilder,
               private _servios: ServiciosService,
@@ -50,7 +55,8 @@ export class DashboardComponent implements OnInit {
               private _subastaCrudService: SubastaCrudService,
               private _clienteCrudService: ClienteCrudService,
               private _proveedroCrudService: ProveedorCrudService,
-              private _ofertaCrudService: OfertaCrudService) {
+              private _ofertaCrudService: OfertaCrudService,
+              private _servServicios: ServicioService) {
   }
 
   ngOnInit(): void {
@@ -86,7 +92,11 @@ export class DashboardComponent implements OnInit {
         this.rol = 'admin';
         break;
     }
+
+    this.crearFormServicio();
+
     this.obtenerOfertas();
+
     this.crearFormSubasta();
     this.crearFormOferta();
     this.obtenerServicios();
@@ -105,6 +115,30 @@ export class DashboardComponent implements OnInit {
       imagenSubasta: ['', []]
     });
   }
+
+  //JUAN SERVICIOS POSTT
+  crearFormServicio():void{
+    this.formNuevoServicio = this._formBuilder.group({
+      tituloServicio: ['',[Validators.required]],
+      tituloDescripcion: ['', [Validators.required]]
+    })
+  }
+  //SERVICIO DE CATEGORIAS-YO
+  crearServicio(): void{
+    const tituloServicio = this.formNuevoServicio.get('tituloServicio').value;
+    const tituloDescripcion = this.formNuevoServicio.get('tituloDescripcion').value;
+
+    const nuevoServicio = {
+      nombreServicio: tituloServicio,
+      descripcion_servicio: tituloDescripcion,
+      
+    }
+
+    this._servServicios.crearServicio(nuevoServicio).then(res =>{
+      this.addSingle('Servicio generado correctamente', 'success','Registro Servicio');
+    })
+  }
+
 
   crearSubasta(): void {
     const tituloSubasta = this.formNuevaSubasta.get('tituloSubasta').value;

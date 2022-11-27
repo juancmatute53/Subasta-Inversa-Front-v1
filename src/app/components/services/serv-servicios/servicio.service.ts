@@ -14,11 +14,8 @@ export class ServicioService {
 
   crearServicio(data: any): Promise<any> {
     //console.log(data);
-    return this._http.post('http://localhost:9090/servicio/crear',
-      data,
-      {
-        headers: this.headers
-      }
+    return this._http.post('http://localhost:9090/auth/servicio/crear',
+      data
     ).toPromise();
   }
 

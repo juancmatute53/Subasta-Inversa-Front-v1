@@ -563,6 +563,8 @@
 
 <!--Modal de Categoria-->
 
+<!--Modal de Categoria-->
+
 <div class="modal" tabindex="-1" id="ventanaModalCat">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -572,26 +574,27 @@
       </div>
       <div class="modal-body">
         <!--Layout-->
-        <div class="mb-3">
-          <label for="nombreCategoria" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese el nombre categoría">
-        </div>
 
-        <div class="mb-3">
-          <label for="descripcionCategoria" class="form-label">Descripcion</label>
-          <input type="text" class="form-control" id="descripcionCategoria" placeholder="Ingrese descripcion">
-        </div>
+        <form class="row g-3" [formGroup]="formNuevoServicio">
+          <div class="mb-3">
+            <label for="nombreCategoria" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese el nombre categoría" formControlName="tituloServicio">
+          </div>
 
+          <div class="mb-3">
+            <label for="descripcionCategoria" class="form-label">Descripcion</label>
+            <input type="text" class="form-control" id="descripcionCategoria" placeholder="Ingrese descripcion" formControlName="tituloDescripcion">
+          </div>
+        </form>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Agregar Categoría</button>
+        <button type="button" class="btn btn-primary" (click)="crearServicio()">Agregar Categoría</button>
       </div>
     </div>
   </div>
 </div>
-
 
 
 
