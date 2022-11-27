@@ -21,7 +21,7 @@ interface Servicio {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  responsiveOptions: any;
   formNuevaSubasta: any;
   formNuevaOferta: any;
   isValorOferta = true;
@@ -32,6 +32,16 @@ export class DashboardComponent implements OnInit {
   // @ts-ignore
   subastasBD: Subastas[] = [];
   subastaSelected: Subastas[] = [];
+  subastaEstado : Subastas[] =[];
+  ofertasAcomuladas: [] = [];
+  ofertasPorSubasta: any[] = [];
+
+  dataClinte: [] = [];
+  dataProveedor: [] = [];
+
+  posicionDialogOferta = 'right';
+  mostrarDialogOferta = false;
+  nombreUserLog: string = '';
   fechaActual: string = new Date().toLocaleDateString('es-es', {year:"numeric", month:"numeric" ,day:"numeric"});
 
   constructor(private _messageService: MessageService,
@@ -49,23 +59,42 @@ export class DashboardComponent implements OnInit {
     switch (this._tokenService.getAuthorities()[0]){
       case 'ROLE_CLIENTE':
         this.rol = 'cliente';
-        this.crearFormSubasta();
+        this.obtenerDataCliente();
+        this.obtenerSubastasEstado();
+        this.obtenerOfertas();
+        this.responsiveOptions = [
+          {
+            breakpoint: '1024px',
+            numVisible: 3,
+            numScroll: 3
+          },
+          {
+            breakpoint: '768px',
+            numVisible: 2,
+            numScroll: 2
+          },
+          {
+            breakpoint: '560px',
+            numVisible: 1,
+            numScroll: 1
+          }
+        ];
         break;
       case 'ROLE_PROVEEDOR':
         this.rol = 'proveedor';
-        this.crearFormOferta();
+        this.obtenerDataProveedor();
         break;
       case 'ROLE_ADMIN':
-        this.rol = 'admiin';
-        this.crearFormSubasta();
-        this.crearFormOferta();
+        this.rol = 'admin';
         break;
     }
-
+    this.crearFormSubasta();
+    this.crearFormOferta();
     this.obtenerServicios();
     this.obtenerSubastas();
   }
 
+  // * TODO ClIENTE
   crearFormSubasta(): void {
     this.formNuevaSubasta = this._formBuilder.group({
       tituloSubasta: ['', [Validators.required]],
@@ -75,12 +104,6 @@ export class DashboardComponent implements OnInit {
       servioSolicitado: ['', [Validators.required]],
       horaCierreSubasta: ['', [Validators.required]],
       imagenSubasta: ['', []]
-    });
-  }
-
-  crearFormOferta(): void{
-    this.formNuevaOferta = this._formBuilder.group({
-      precioOferta: ['', [Validators.required]],
     });
   }
 
@@ -101,7 +124,7 @@ export class DashboardComponent implements OnInit {
         horaCierreSubasta: horaCierreSubasta,
         fechaInicio: fechaInicioSubasta,
         fechaFin: fechaFinSubasta,
-        estadoSubasta: "Abierta",
+        estadoSubasta: 'Iniciada',
         descripcionSubasta: descripcionSubasta,
         imgSubasta: imagenSubasta,
         cliente: {
@@ -122,27 +145,23 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  // * Obtenemo los servicios
-  obtenerServicios(): void {
-    // * hacemos la peticion al servicio
-    this._servios.obtenerServicios().then(res => {
+  verOfertas(data : any): void{
+    this.ofertasPorSubasta = [];
+    this.mostrarDialogOferta = true;
+    this.ofertasAcomuladas.forEach(item =>{
       // @ts-ignore
-      // * recorremos el res que nos deja la promesa
-      res.forEach(elem => {
-        // * Mandamos el objeto con los datos del servicio
-        // @ts-ignore
-        this.serviciosBD.push({id: elem.idServicio, name: elem.nombreServicio, descripcion: elem.descripcion_servicio});
-      });
-    }).catch(err => {
-      this.addSingle(err.message, 'error', 'Error');
+      if (item.subasta.idSubasta === data.idSubasta){
+        this.ofertasPorSubasta.push(item);
+      }
     });
+    // @ts-ignore
+    console.log(this.ofertasPorSubasta)
   }
 
-  obtenerSubastas(): void {
-    this._subastaCrudService.obtenerSubasta().then(res => {
-      this.subastasBD = res;
-    }).catch(err => {
-      this.addSingle(err.message, 'error', 'Error');
+  // * TODO PROVEEDOR
+  crearFormOferta(): void{
+    this.formNuevaOferta = this._formBuilder.group({
+      precioOferta: ['', [Validators.required]],
     });
   }
 
@@ -179,6 +198,78 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // * TODO OBTENER DATA BACK
+  // * Obtenemo los servicios
+  obtenerServicios(): void {
+    // * hacemos la peticion al servicio
+    this._servios.obtenerServicios().then(res => {
+      // @ts-ignore
+      // * recorremos el res que nos deja la promesa
+      res.forEach(elem => {
+        // * Mandamos el objeto con los datos del servicio
+        // @ts-ignore
+        this.serviciosBD.push({id: elem.idServicio, name: elem.nombreServicio, descripcion: elem.descripcion_servicio});
+      });
+    }).catch(err => {
+      this.addSingle(err.message, 'error', 'Error');
+    });
+  }
+
+  obtenerSubastas(): void {
+    this._subastaCrudService.obtenerSubasta().then(res => {
+      this.subastasBD = res;
+    }).catch(err => {
+      this.addSingle(err.message, 'error', 'Error');
+    });
+  }
+
+  obtenerDataCliente(): void{
+    this._clienteCrudService.filtrarCliente(this._tokenService.getUserName()).then(res =>{
+      this.dataClinte = res[0];
+      // @ts-ignore
+      this.nombreUserLog = this.dataClinte.nombre+' '+this.dataClinte.apellido;
+    }).catch(err =>{
+      this.addSingle(err.message, 'error', 'Error');
+    })
+  }
+
+  obtenerDataProveedor(): void{
+    this._proveedroCrudService.filtrarProveedor(this._tokenService.getUserName()).then(res =>{
+      this.dataProveedor = res[0];
+      // @ts-ignore
+      this.nombreUserLog = this.dataProveedor.nombre+' '+this.dataProveedor.apellido;
+    }).catch(err =>{
+      this.addSingle(err.message, 'error', 'Error');
+    })
+  }
+
+  obtenerSubastasEstado(): void{
+    this._subastaCrudService.filtrarSubasta('Iniciada').then(res =>{
+      // @ts-ignore
+      res.forEach(subasta =>{
+        // @ts-ignore
+        if (subasta.cliente.id_persona === this.dataClinte.id_persona){
+          this.subastaEstado.push(subasta);
+        }
+      })
+    }).catch(err =>{
+      this.addSingle(err.message, 'error', 'Error');
+    })
+  }
+
+  obtenerOfertas(): void{
+    this._ofertaCrudService.obtenerOferta().then(res =>{
+      // @ts-ignore
+      res.forEach(oferta =>{
+        // @ts-ignore
+        this.ofertasAcomuladas.push(oferta);
+      })
+    }).catch(err =>{
+      console.log(err);
+    });
+  }
+
+  // * TODO GENERALES
   observarPrecioOferta(): void{
     console.log('HOLA')
     if (this.formNuevaOferta.get('precioOferta').value === null){
@@ -192,6 +283,7 @@ export class DashboardComponent implements OnInit {
     this.subastaSelected = subasta;
     this.displayModal = true;
   }
+
   addSingle(message: string, severity: string, summary: string) {
     this._messageService.add({severity: severity, summary: summary, detail: message});
   }

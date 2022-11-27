@@ -38,6 +38,11 @@ export class OfertaCrudService {
     return this._http.get('http://localhost:9090/auth/oferta/listar/' + filtro).toPromise();
   }
 
+
+  subastaOferta(id: number): Promise<any> {
+    return this._http.get('http://localhost:9090/auth/oferta/listar/subasta/' + id).toPromise();
+  }
+
   eliminarOferta(id: string): Promise<any> {
     return this._http.get('http://localhost:9090/auth/oferta/listar/' + id).toPromise();
   }
