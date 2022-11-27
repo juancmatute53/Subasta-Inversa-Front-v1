@@ -247,7 +247,7 @@ export class DashboardComponent implements OnInit {
       // @ts-ignore
       res.forEach(subasta =>{
         // @ts-ignore
-        if (subasta.cliente.id_persona === this.dataClinte.id_persona){
+        if (subasta.cliente.id_persona === this.dataUsuario.id_persona){
           this.subastaEstado.push(subasta);
         }
       })
