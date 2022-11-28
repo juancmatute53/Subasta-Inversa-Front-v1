@@ -23,7 +23,7 @@ export class SubastaCrudService {
 
   editarSubasta(data: any, id: string): Promise<any> {
     //console.log(data);
-    return this._http.post('http://localhost:9090/auth/subasta/crear/' + id,
+    return this._http.put('http://localhost:9090/auth/subasta/editar/' + id,
       data,
       {
         headers: this.headers

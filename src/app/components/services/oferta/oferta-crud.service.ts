@@ -22,7 +22,7 @@ export class OfertaCrudService {
 
   editarOferta(data: any, id: string): Promise<any> {
     //console.log(data);
-    return this._http.post('http://localhost:9090/auth/oferta/crear/' + id,
+    return this._http.put('http://localhost:9090/auth/oferta/editar/' + id,
       data,
       {
         headers: this.headers

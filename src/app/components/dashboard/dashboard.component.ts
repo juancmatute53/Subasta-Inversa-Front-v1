@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MessageService} from "primeng/api";
+import {ConfirmationService, ConfirmEventType, MessageService} from "primeng/api";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ServiciosService} from "../services/servicios-crud/servicios.service";
 import {TokenService} from "../services/token/token.service";
@@ -10,6 +10,7 @@ import {LoginUsuario} from "../../models/login-usuario";
 import {ProveedorCrudService} from "../services/proveedor/proveedor-crud.service";
 import {OfertaCrudService} from "../services/oferta/oferta-crud.service";
 import {ServicioService} from "../services/serv-servicios/servicio.service";
+import {of} from "rxjs";
 
 interface Servicio {
   name: string,
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   subastasBD: Subastas[] = [];
   subastaSelected: Subastas[] = [];
   subastaEstado : Subastas[] =[];
+  subastaEstadoFin : Subastas[] =[];
   ofertasAcomuladas: [] = [];
   ofertasPorSubasta: any[] = [];
 
@@ -56,7 +58,8 @@ export class DashboardComponent implements OnInit {
               private _clienteCrudService: ClienteCrudService,
               private _proveedroCrudService: ProveedorCrudService,
               private _ofertaCrudService: OfertaCrudService,
-              private _servServicios: ServicioService) {
+              private _servServicios: ServicioService,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -131,7 +134,7 @@ export class DashboardComponent implements OnInit {
     const nuevoServicio = {
       nombreServicio: tituloServicio,
       descripcion_servicio: tituloDescripcion,
-      
+
     }
 
     this._servServicios.crearServicio(nuevoServicio).then(res =>{
@@ -157,7 +160,7 @@ export class DashboardComponent implements OnInit {
         horaCierreSubasta: horaCierreSubasta,
         fechaInicio: fechaInicioSubasta,
         fechaFin: fechaFinSubasta,
-        estadoSubasta: 'Iniciada',
+        estadoSubasta: 'Abierta',
         descripcionSubasta: descripcionSubasta,
         imgSubasta: imagenSubasta,
         cliente: {
@@ -187,8 +190,6 @@ export class DashboardComponent implements OnInit {
         this.ofertasPorSubasta.push(item);
       }
     });
-    // @ts-ignore
-    console.log(this.ofertasPorSubasta)
   }
 
   // * TODO PROVEEDOR
@@ -217,7 +218,6 @@ export class DashboardComponent implements OnInit {
           idSubasta: Object.values(this.subastaSelected)[0]
         }
       };
-      console.log(oferta);
       this._ofertaCrudService.crearOferta(oferta).then(res =>{
         this.addSingle('Oferta realizada con exito.', 'success', 'Ofertar');
         this.mostrarAnimacionCarga = false;
@@ -277,7 +277,7 @@ export class DashboardComponent implements OnInit {
   }
 
   obtenerSubastasEstado(): void{
-    this._subastaCrudService.filtrarSubasta('Iniciada').then(res =>{
+    this._subastaCrudService.filtrarSubasta('Abierta').then(res =>{
       // @ts-ignore
       res.forEach(subasta =>{
         // @ts-ignore
@@ -288,6 +288,19 @@ export class DashboardComponent implements OnInit {
     }).catch(err =>{
       this.addSingle(err.message, 'error', 'Error');
     })
+
+    this._subastaCrudService.filtrarSubasta('Cerrada').then(res =>{
+      // @ts-ignore
+      res.forEach(subasta =>{
+        // @ts-ignore
+        if (subasta.cliente.id_persona === this.dataUsuario.id_persona){
+          this.subastaEstadoFin.push(subasta);
+        }
+      })
+    }).catch(err =>{
+      this.addSingle(err.message, 'error', 'Error');
+    })
+
   }
 
   obtenerOfertas(): void{
@@ -330,4 +343,72 @@ export class DashboardComponent implements OnInit {
     this.formNuevaOferta.get('precioOferta').setValue(' ');
   }
 
+  confirm(ofer: any) {
+    // @ts-ignore
+    this.confirmationService.confirm({
+      message: '¿Estas seguro de escocger a '+ofer.proveedor.nombre+' '+ofer.proveedor.apellido+' ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //console.log(ofer)
+        this.actualizarEstadoSubasta(ofer)
+        const oferta = {
+          percioOferta: ofer.percioOferta,
+          fecha: ofer.fecha,
+          comentario_calificacion_oferta: "",
+          estado: true,
+          calificacion: 0,
+          proveedor: {
+            id_persona: ofer.proveedor.id_persona
+          },
+          subasta: {
+            idSubasta: ofer.subasta.idSubasta
+          }
+        };
+
+        this._ofertaCrudService.editarOferta(oferta, ofer.idOferta).then(res =>{
+          this.addSingle(
+            'Tu subasta ha finalizado, puedes comunicarte con '+ofer.proveedor.nombre + ' ' + ofer.proveedor.apellido,
+            'success', 'Ofertar');
+        }).catch(err =>{
+          this.addSingle('No se ha podido efectuar la seleccion del ganador.', 'error', 'Error al ofertar');
+        })
+      },
+      reject: (type: any) => {
+        switch(type) {
+          case ConfirmEventType.REJECT:
+            //this._messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+            break;
+          case ConfirmEventType.CANCEL:
+            //this._messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+            break;
+        }
+      }
+    });
+  }
+
+  actualizarEstadoSubasta(oferSubasta: any) :void{
+    console.log(oferSubasta)
+    const subastaActualizada = {
+      tituloSubasta: oferSubasta.subasta.tituloSubasta,
+      horaCierreSubasta: oferSubasta.subasta.horaCierreSubasta,
+      fechaInicio: oferSubasta.subasta.fechaInicio,
+      fechaFin: oferSubasta.subasta.fechaFin,
+      estadoSubasta: 'Cerrada',
+      descripcionSubasta: oferSubasta.subasta.descripcionSubasta,
+      imgSubasta: oferSubasta.subasta.imgSubasta,
+      cliente: {
+        id_persona: oferSubasta.subasta.cliente.id_persona
+      },
+      servicio: {
+        idServicio: oferSubasta.subasta.servicio.idServicio
+      }
+    }
+    //
+    this._subastaCrudService.editarSubasta(subastaActualizada, oferSubasta.subasta.idSubasta).then(res => {
+      this.addSingle('Subasta finalizada', 'success', 'Finalizacion');
+    }).catch(err => {
+      this.addSingle(err.message, 'error', 'Error');
+    })
+  }
 }

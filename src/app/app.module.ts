@@ -64,6 +64,7 @@ import {MessageModule} from "primeng/message";
     MessageService,
     PrimeNGConfig,
     ConfirmationService,
+    ConfirmationService,
     interceptorProvider
   ],
   bootstrap: [AppComponent]
