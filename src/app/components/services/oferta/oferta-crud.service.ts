@@ -47,4 +47,7 @@ export class OfertaCrudService {
     return this._http.get('http://localhost:9090/auth/oferta/listar/' + id).toPromise();
   }
 
+  listarProveedor(id: number): Promise<any>{
+    return this._http.get('http://localhost:9090/auth/oferta/listar/proveedor/' +id).toPromise();
+  }
 }

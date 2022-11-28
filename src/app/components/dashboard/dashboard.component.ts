@@ -11,6 +11,7 @@ import {ProveedorCrudService} from "../services/proveedor/proveedor-crud.service
 import {OfertaCrudService} from "../services/oferta/oferta-crud.service";
 import {ServicioService} from "../services/serv-servicios/servicio.service";
 import {of} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 interface Servicio {
   name: string,
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit {
   ofertasPorSubasta: any[] = [];
 
   dataUsuario: [] = [];
+  listarOfertaPro: []=[];
 
   posicionDialogOferta = 'right';
   mostrarDialogOferta = false;
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
       case 'ROLE_PROVEEDOR':
         this.rol = 'proveedor';
         this.obtenerDataProveedor();
+        this.obtenerOfertaProveedor();
         break;
       case 'ROLE_ADMIN':
         this.rol = 'admin';
@@ -197,6 +200,16 @@ export class DashboardComponent implements OnInit {
     this.formNuevaOferta = this._formBuilder.group({
       precioOferta: ['', [Validators.required]],
     });
+  }
+
+  obtenerOfertaProveedor(): void{
+
+    // @ts-ignore
+    this._ofertaCrudService.listarProveedor(this.dataUsuario.id_persona).then(res => {
+      console.log('prrueba', res)
+    }).catch(error =>{
+      console.log('errrorr prueba', error)
+    })
   }
 
   ofertarSubasta(): void{
