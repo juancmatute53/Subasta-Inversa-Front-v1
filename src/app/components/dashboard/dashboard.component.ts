@@ -92,7 +92,6 @@ export class DashboardComponent implements OnInit {
       case 'ROLE_PROVEEDOR':
         this.rol = 'proveedor';
         this.obtenerDataProveedor();
-        this.obtenerOfertaProveedor();
         break;
       case 'ROLE_ADMIN':
         this.rol = 'admin';
@@ -203,12 +202,13 @@ export class DashboardComponent implements OnInit {
   }
 
   obtenerOfertaProveedor(): void{
-
+    // @ts-ignore
+    console.log('listado',  this.dataUsuario.id_persona)
     // @ts-ignore
     this._ofertaCrudService.listarProveedor(this.dataUsuario.id_persona).then(res => {
-      console.log('prrueba', res)
+      this.listarOfertaPro = res;
     }).catch(error =>{
-      console.log('errrorr prueba', error)
+      this.addSingle(error.message, 'error', 'Error');
     })
   }
 
@@ -284,9 +284,11 @@ export class DashboardComponent implements OnInit {
       this.dataUsuario = res[0];
       // @ts-ignore
       this.nombreUserLog = this.dataUsuario.nombre+' '+this.dataUsuario.apellido;
+      this.obtenerOfertaProveedor ();
     }).catch(err =>{
       this.addSingle(err.message, 'error', 'Error');
     })
+    console.log(this.dataUsuario)
   }
 
   obtenerSubastasEstado(): void{

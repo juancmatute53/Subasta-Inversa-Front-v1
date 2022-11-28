@@ -140,6 +140,7 @@
 </p-dialog>
 
 <!--MODAL DE HISTORIAL DE SUBASTAS PUJADAS-->
+
 <div class="modal" tabindex="-1" id="ventanaModalSubOfertadas">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -149,33 +150,26 @@
       </div>
       <div class="modal-body">
         <!--Tabla-->
-        <table class="table">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Imagen</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Fecha de contrato</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
+        <p-table [value]="listarOfertaPro" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Fecha</th>
+              <th>Precio Oferta</th>
+              <th>Titulo Subasta</th>
+              <th>Descripcion Subasta</th>
+              <th>Servicio Ofertado</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-oferta>
+            <tr>
+              <td>{{oferta.fecha}}</td>
+              <td>{{oferta.percioOferta}}</td>
+              <td>{{oferta.subasta.tituloSubasta}}</td>
+              <td>{{oferta.subasta.descripcionSubasta}}</td>
+              <td>{{oferta.servicio.nombreServicio}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
   </div>
