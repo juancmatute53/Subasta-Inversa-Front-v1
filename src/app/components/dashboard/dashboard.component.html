@@ -162,11 +162,11 @@
           </ng-template>
           <ng-template pTemplate="body" let-oferta>
             <tr>
-              <td>{{oferta.fecha}}</td>
+              <td>{{oferta.fecha | date: 'dd/MM/yyyy'}}</td>
               <td>{{oferta.percioOferta}}</td>
               <td>{{oferta.subasta.tituloSubasta}}</td>
               <td>{{oferta.subasta.descripcionSubasta}}</td>
-              <td>{{oferta.servicio.nombreServicio}}</td>
+              <td>{{oferta.subasta.servicio.nombreServicio}}</td>
             </tr>
           </ng-template>
         </p-table>

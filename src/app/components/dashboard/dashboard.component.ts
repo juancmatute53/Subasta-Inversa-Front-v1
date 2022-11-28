@@ -99,9 +99,7 @@ export class DashboardComponent implements OnInit {
     }
 
     this.crearFormServicio();
-
     this.obtenerOfertas();
-
     this.crearFormSubasta();
     this.crearFormOferta();
     this.obtenerServicios();
@@ -203,12 +201,19 @@ export class DashboardComponent implements OnInit {
 
   obtenerOfertaProveedor(): void{
     // @ts-ignore
-    console.log('listado',  this.dataUsuario.id_persona)
+    //console.log('listado',  this.dataUsuario.id_persona)
     // @ts-ignore
-    this._ofertaCrudService.listarProveedor(this.dataUsuario.id_persona).then(res => {
-      this.listarOfertaPro = res;
-    }).catch(error =>{
-      this.addSingle(error.message, 'error', 'Error');
+    // this._ofertaCrudService.listarProveedor(this.dataUsuario.id_persona).then(res => {
+    //   this.listarOfertaPro = res;
+    // }).catch(err =>{
+    //   this.addSingle(err.message, 'error', 'Error');
+    // })
+    this.ofertasAcomuladas.forEach(item =>{
+      // @ts-ignore
+      if (item.proveedor.id_persona === this.dataUsuario.id_persona){
+        console.log(item)
+        this.listarOfertaPro.push(item);
+      }
     })
   }
 
@@ -284,7 +289,6 @@ export class DashboardComponent implements OnInit {
       this.dataUsuario = res[0];
       // @ts-ignore
       this.nombreUserLog = this.dataUsuario.nombre+' '+this.dataUsuario.apellido;
-      this.obtenerOfertaProveedor ();
     }).catch(err =>{
       this.addSingle(err.message, 'error', 'Error');
     })
@@ -325,6 +329,7 @@ export class DashboardComponent implements OnInit {
         // @ts-ignore
         this.ofertasAcomuladas.push(oferta);
       })
+      this.obtenerOfertaProveedor ();
     }).catch(err =>{
       console.log(err);
     });
